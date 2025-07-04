@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+  <!-- 1. Пользователи -->
+  <changeSet id="1-users" author="my_name">
+    <createTable tableName="users">
+      <column name="telegram_id" type="BIGINT">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="username" type="text">
+      </column>
+    </createTable>
+  </changeSet>
+
+  <!-- 2. Кандидаты -->
+  <changeSet id="2-candidates" author="my_name">
+    <createTable tableName="candidates">
+      <column name="id" type="SERIAL">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="name" type="TEXT">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+  <!-- 3. Справочник вариантов ответа -->
+  <changeSet id="3-vote-options" author="my_name">
+    <createTable tableName="vote_options">
+      <column name="code" type="CHAR(1)">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="label" type="TEXT">
+        <constraints nullable="false" unique="true"/>
+      </column>
+    </createTable>
+
+    <insert tableName="vote_options">
+      <column name="code" value="Y"/>
+      <column name="label" value="Да"/>
+    </insert>
+    <insert tableName="vote_options">
+      <column name="code" value="N"/>
+      <column name="label" value="Нет"/>
+    </insert>
+    <insert tableName="vote_options">
+      <column name="code" value="A"/>
+      <column name="label" value="Воздержусь"/>
+    </insert>
+  </changeSet>
+
+  <!-- 4. Факты голосований -->
+  <changeSet id="4-votes" author="my_name">
+    <!-- 1. Создаём таблицу -->
+    <createTable tableName="votes">
+      <column name="user_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+
+      <column name="candidate_id" type="INT">
+        <constraints nullable="false"/>
+      </column>
+
+      <column name="option_code" type="CHAR(1)">
+        <constraints nullable="false"/>
+      </column>
+
+      <column name="voted_at"
+        type="TIMESTAMP WITH TIME ZONE"
+        defaultValueComputed="NOW()"/>
+    </createTable>
+
+    <!-- 2. Составной первичный ключ -->
+    <addPrimaryKey tableName="votes"
+      columnNames="user_id,candidate_id"
+      constraintName="pk_votes"/>
+
+    <!-- 3. Внешние ключи -->
+    <addForeignKeyConstraint
+      baseTableName="votes" baseColumnNames="user_id"
+      referencedTableName="users" referencedColumnNames="telegram_id"
+      onDelete="CASCADE" constraintName="fk_votes_user"/>
+
+    <addForeignKeyConstraint
+      baseTableName="votes" baseColumnNames="candidate_id"
+      referencedTableName="candidates" referencedColumnNames="id"
+      onDelete="CASCADE" constraintName="fk_votes_candidate"/>
+
+    <addForeignKeyConstraint
+      baseTableName="votes" baseColumnNames="option_code"
+      referencedTableName="vote_options" referencedColumnNames="code"
+      constraintName="fk_votes_option"/>
+
+    <!-- 4. Индекс для быстрого подсчёта голосов по кандидату -->
+    <createIndex tableName="votes" indexName="idx_votes_candidate">
+      <column name="candidate_id"/>
+    </createIndex>
+  </changeSet>
+
+
+</databaseChangeLog>
