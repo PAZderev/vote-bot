@@ -101,5 +101,101 @@
     </createIndex>
   </changeSet>
 
+  <!-- 5. Начальные записи кандидатов -->
+  <changeSet id="5-candidates-seed" author="my_name">
+    <insert tableName="candidates">
+      <column name="name" value="Ваня"/>
+    </insert>
+    <insert tableName="candidates">
+      <column name="name" value="Федя"/>
+    </insert>
+    <insert tableName="candidates">
+      <column name="name" value="Ксюша"/>
+    </insert>
+
+    <insert tableName="candidates">
+      <column name="name" value="Валера"/>
+    </insert>
+
+    <insert tableName="candidates">
+      <column name="name" value="Артем"/>
+    </insert>
+
+    <insert tableName="candidates">
+      <column name="name" value="Тимоха"/>
+    </insert>
+
+    <insert tableName="candidates">
+      <column name="name" value="Дрон"/>
+    </insert>
+
+    <insert tableName="candidates">
+      <column name="name" value="Саша логистика"/>
+    </insert>
+
+    <insert tableName="candidates">
+      <column name="name" value="Женя"/>
+    </insert>
+
+    <insert tableName="candidates">
+      <column name="name" value="Максим"/>
+    </insert>
+
+    <insert tableName="candidates">
+      <column name="name" value="Валера"/>
+    </insert>
+
+    <insert tableName="candidates">
+      <column name="name" value="Егор"/>
+    </insert>
+
+    <insert tableName="candidates">
+      <column name="name" value="Саня Захарчук"/>
+    </insert>
+
+    <insert tableName="candidates">
+      <column name="name" value="Ксюша"/>
+    </insert>
+
+    <insert tableName="candidates">
+      <column name="name" value="Паша ZZZZ"/>
+    </insert>
+
+    <insert tableName="candidates">
+      <column name="name" value="Паша Смирнов"/>
+    </insert>
+
+    <insert tableName="candidates">
+      <column name="name" value="Борька"/>
+    </insert>
+
+    <insert tableName="candidates">
+      <column name="name" value="Дрон"/>
+    </insert>
+
+    <insert tableName="candidates">
+      <column name="name" value="Эмка"/>
+    </insert>
+
+    <insert tableName="candidates">
+      <column name="name" value="Алина"/>
+    </insert>
+
+    <insert tableName="candidates">
+      <column name="name" value="Яна ББ"/>
+    </insert>
+
+    <insert tableName="candidates">
+      <column name="name" value="Варя"/>
+    </insert>
+
+    <insert tableName="candidates">
+      <column name="name" value="Яна Красавина"/>
+    </insert>
+
+    <insert tableName="candidates">
+      <column name="name" value="Юля ББ"/>
+    </insert>
+  </changeSet>
 
 </databaseChangeLog>

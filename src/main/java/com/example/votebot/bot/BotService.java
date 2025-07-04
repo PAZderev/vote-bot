@@ -175,7 +175,7 @@ public class BotService {
             .oneTimeKeyboard(false);
 
         bot.execute(new SendMessage(chat,
-            "Кандидат: *" + cand.getName() + "*")
+            "едет ли: *" + cand.getName() + "*")
             .parseMode(ParseMode.Markdown)
             .replyMarkup(kb));
     }
